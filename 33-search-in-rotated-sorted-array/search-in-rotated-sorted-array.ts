@@ -1,32 +1,33 @@
 function search(nums: number[], target: number): number {
     let left = 0;
-    let right = nums.length-1;
-    while(left<=right){
+    let right = nums.length - 1;
+
+    while (left <= right) {        
         const mid = Math.floor((left + right) / 2);
-        if(target==nums[mid]){
+
+        if (target === nums[mid]) {
             return mid;
         }
 
-        // Left sorted portion
-        if(nums[left]<=nums[mid]){
-            if(target>nums[mid] || target<nums[left]){
-                // Search on right array
-                left = mid+1;
-            }else{
-                // Search on left array
-                right = mid-1;
+        // Check if the Left portion is sorted
+        if (nums[left] <= nums[mid]) {
+            // If target is within the bounds of the sorted left portion
+            if (target >= nums[left] && target < nums[mid]) {
+                right = mid - 1; // Target is in the left
+            } else {
+                left = mid + 1;  // Target is in the right
             }
         }
-        // Right sorted portion
-        else{
-            if(target<nums[mid] || target>nums[right]){
-                // Search on left array
-                right = mid-1;
-            }else{
-                // Search on right array
-                left = mid+1;
+        // Otherwise, the Right portion must be sorted
+        else {
+            // If target is within the bounds of the sorted right portion
+            if (target > nums[mid] && target <= nums[right]) {
+                left = mid + 1;  // Target is in the right
+            } else {
+                right = mid - 1; // Target is in the left
             }
         }
     }
+
     return -1;
 };
