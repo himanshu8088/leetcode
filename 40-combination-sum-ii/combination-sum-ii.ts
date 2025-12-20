@@ -1,9 +1,9 @@
 function combinationSum2(candidates: number[], target: number): number[][] {
-    const result: Set<number[]> = new Set<number[]>;
+    const result: number[][] = [];
     candidates.sort();
     function dfs(curr: number, combinations: number[], total: number){
         if(target===total){            
-            result.add([...combinations]);
+            result.push([...combinations]);
             return;
         }
         if(curr==candidates.length || target<total){
@@ -20,5 +20,5 @@ function combinationSum2(candidates: number[], target: number): number[][] {
     }
 
     dfs(0, [], 0);
-    return [...result];
+    return result;
 };
