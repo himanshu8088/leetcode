@@ -1,15 +1,12 @@
 function getRow(rowIndex: number): number[] {
-    const m: number[][] = [];
-    for(let i=0; i<=rowIndex; i++){
-        m[i] = [];
-        for(let j=0; j<=i; j++){
-            if(i===j || j===0){
-                m[i][j] = 1;
-            }else{
-                m[i][j] = m[i-1][j-1] + m[i-1][j];
-            }
+    // Single row can hold value for each rowIndex
+    const row = new Array(rowIndex+1).fill(1);
+    // Iterating over each row
+    for(let i=2; i<=rowIndex; i++){
+        // Overwriting values from backward in each row
+        for(let j=i-1; j>0; j--){            
+            row[j] = row[j]+row[j-1];
         }
     }
-
-    return m[rowIndex];
-};
+    return row;
+}
