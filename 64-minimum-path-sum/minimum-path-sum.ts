@@ -1,4 +1,25 @@
-// Top down
+// Space Complexity - O(n)
+function minPathSum(grid: number[][]): number {
+    const sum: number[] = [];
+    const rows = grid.length;
+    const cols = grid[0].length;
+    sum[0] = grid[0][0];
+    for(let j=1; j<cols; j++){
+        sum[j] = grid[0][j] + sum[j-1];
+    }
+
+    for(let i=1; i<rows; i++){
+        sum[0] = grid[i][0] + sum[0];
+        for(let j=1; j<cols; j++){
+            sum[j] = grid[i][j] + Math.min(sum[j], sum[j-1]);
+        }
+    }
+
+    return sum[cols-1];
+}
+
+/*
+// Top down - Space Complexity - O(n*m)
 function minPathSum(grid: number[][]): number {
     const sum: number[][] = [];
     const rows = grid.length;
@@ -25,6 +46,7 @@ function minPathSum(grid: number[][]): number {
 
     return sum[rows-1][cols-1];
 }
+*/
 
 /* Bottop Up
 function minPathSum(grid: number[][]): number {
